@@ -20,18 +20,15 @@ import {
   Layers, 
   Sparkles, 
   CheckCircle2, 
-  Send,
   Database,
   Layout,
   Wrench,
   Server,
-  Download,
   Eye,
   Phone,
   MapPin
 } from 'lucide-react';
 
-// Sample Developer Portfolio Data
 const PORTFOLIO_DATA = {
   personal: {
     name: "Naga Bhaskar Balam",
@@ -149,7 +146,6 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('All');
   const [selectedProject, setSelectedProject] = useState(null);
 
-  // Handle Theme Switcher
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
@@ -158,7 +154,6 @@ export default function App() {
     }
   }, [darkMode]);
 
-  // Project Filtering Logic
   const categories = ['All', 'Cloud Infrastructure', 'Web Application'];
   const filteredProjects = activeTab === 'All' 
     ? PORTFOLIO_DATA.projects 
@@ -178,7 +173,6 @@ export default function App() {
       <header className={`sticky top-0 z-40 backdrop-blur-md border-b transition-colors duration-300 ${darkMode ? 'bg-slate-950/80 border-slate-800/80' : 'bg-white/80 border-slate-200'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           
-          {/* Brand Logo */}
           <a href="#hero" className="flex items-center space-x-2 group">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white font-bold shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
               <Code2 className="w-5 h-5" />
@@ -188,7 +182,6 @@ export default function App() {
             </span>
           </a>
 
-          {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
             <a href="#about" className="hover:text-indigo-500 transition-colors">About</a>
             <a href="#skills" className="hover:text-indigo-500 transition-colors">Skills</a>
@@ -197,7 +190,6 @@ export default function App() {
             <a href="#contact" className="hover:text-indigo-500 transition-colors">Contact</a>
           </nav>
 
-          {/* Action Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             <button
               onClick={() => setDarkMode(!darkMode)}
@@ -214,7 +206,6 @@ export default function App() {
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center space-x-2">
             <button
               onClick={() => setDarkMode(!darkMode)}
@@ -232,7 +223,6 @@ export default function App() {
           </div>
         </div>
 
-        {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
           <div className={`md:hidden border-b px-4 pt-2 pb-6 space-y-3 ${darkMode ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'}`}>
             <a href="#about" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-base font-medium hover:text-indigo-500">About</a>
@@ -240,13 +230,6 @@ export default function App() {
             <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-base font-medium hover:text-indigo-500">Projects</a>
             <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-base font-medium hover:text-indigo-500">Experience</a>
             <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-base font-medium hover:text-indigo-500">Contact</a>
-            <a
-              href="#contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-center py-2.5 text-sm font-semibold text-white bg-indigo-600 rounded-xl shadow-md"
-            >
-              Get In Touch
-            </a>
           </div>
         )}
       </header>
@@ -255,8 +238,6 @@ export default function App() {
         
         {/* HERO SECTION */}
         <section id="hero" className="py-20 lg:py-32 flex flex-col items-center justify-center text-center">
-          
-          {/* Availability Badge */}
           <div className={`inline-flex items-center space-x-2 px-3 py-1.5 rounded-full text-xs font-medium border mb-8 ${darkMode ? 'bg-indigo-950/60 border-indigo-800/60 text-indigo-300' : 'bg-indigo-50 border-indigo-200 text-indigo-700'}`}>
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -265,17 +246,14 @@ export default function App() {
             <span>{PORTFOLIO_DATA.personal.availability}</span>
           </div>
 
-          {/* Main Title */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-4xl leading-tight">
             Building software with <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">precision</span> & purpose.
           </h1>
 
-          {/* Subtitle */}
           <p className={`mt-6 text-lg sm:text-xl max-w-2xl leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
             Hi, I'm <span className="font-semibold text-indigo-400">{PORTFOLIO_DATA.personal.name}</span>. {PORTFOLIO_DATA.personal.tagline}
           </p>
 
-          {/* Call to Actions */}
           <div className="mt-10 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
             <a
               href="#projects"
@@ -294,7 +272,6 @@ export default function App() {
             </a>
           </div>
 
-          {/* Social Links */}
           <div className="mt-12 flex items-center space-x-5 text-slate-400">
             <a href={PORTFOLIO_DATA.personal.github} target="_blank" rel="noreferrer" className="hover:text-indigo-400 transition-colors p-2" aria-label="GitHub">
               <Github className="w-5 h-5" />
@@ -307,7 +284,6 @@ export default function App() {
             </a>
           </div>
 
-          {/* Stats Banner */}
           <div className="mt-16 w-full max-w-4xl grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-10 border-t border-slate-800/40">
             {PORTFOLIO_DATA.personal.stats.map((stat, idx) => (
               <div key={idx} className={`p-4 rounded-2xl border text-center ${darkMode ? 'bg-slate-900/40 border-slate-800/60' : 'bg-white/60 border-slate-200/80 shadow-sm'}`}>
@@ -320,7 +296,6 @@ export default function App() {
               </div>
             ))}
           </div>
-
         </section>
 
         {/* ABOUT SECTION */}
@@ -331,8 +306,6 @@ export default function App() {
           </div>
 
           <div className="grid md:grid-cols-12 gap-8 items-center">
-            
-            {/* Terminal Graphic Card */}
             <div className="md:col-span-5">
               <div className={`rounded-2xl border overflow-hidden shadow-2xl ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-900 text-slate-100 border-slate-800'}`}>
                 <div className="bg-slate-950/80 px-4 py-3 border-b border-slate-800 flex items-center space-x-2">
@@ -354,7 +327,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* Bio & Core Values */}
             <div className="md:col-span-7 space-y-6">
               <p className={`text-base sm:text-lg leading-relaxed ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>
                 {PORTFOLIO_DATA.personal.bio}
@@ -382,7 +354,6 @@ export default function App() {
                 </div>
               </div>
             </div>
-
           </div>
         </section>
 
@@ -397,10 +368,7 @@ export default function App() {
             {PORTFOLIO_DATA.skills.map((skillGroup, idx) => {
               const IconComponent = skillGroup.icon;
               return (
-                <div 
-                  key={idx} 
-                  className={`p-6 rounded-2xl border transition-all hover:border-indigo-500/50 ${darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}
-                >
+                <div key={idx} className={`p-6 rounded-2xl border transition-all hover:border-indigo-500/50 ${darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
                   <div className="flex items-center space-x-3 mb-6">
                     <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400">
                       <IconComponent className="w-6 h-6" />
@@ -410,14 +378,7 @@ export default function App() {
 
                   <div className="flex flex-wrap gap-2.5">
                     {skillGroup.items.map((skill, sIdx) => (
-                      <div 
-                        key={sIdx}
-                        className={`flex items-center space-x-2 px-3.5 py-2 rounded-xl text-xs font-medium border transition-colors ${
-                          darkMode 
-                            ? 'bg-slate-950/80 border-slate-800 text-slate-200 hover:border-indigo-500/40' 
-                            : 'bg-slate-50 border-slate-200 text-slate-800 hover:border-indigo-500/40'
-                        }`}
-                      >
+                      <div key={sIdx} className={`flex items-center space-x-2 px-3.5 py-2 rounded-xl text-xs font-medium border transition-colors ${darkMode ? 'bg-slate-950/80 border-slate-800 text-slate-200 hover:border-indigo-500/40' : 'bg-slate-50 border-slate-200 text-slate-800 hover:border-indigo-500/40'}`}>
                         <CheckCircle2 className="w-3.5 h-3.5 text-indigo-500 flex-shrink-0" />
                         <span>{skill}</span>
                       </div>
@@ -436,7 +397,6 @@ export default function App() {
             <p className="mt-2 text-3xl font-bold tracking-tight">Recent Projects & Case Studies</p>
           </div>
 
-          {/* Category Filter Tabs */}
           <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
             {categories.map((cat, idx) => (
               <button
@@ -455,15 +415,9 @@ export default function App() {
             ))}
           </div>
 
-          {/* Project Grid */}
           <div className="grid md:grid-cols-2 gap-8">
             {filteredProjects.map((project) => (
-              <div 
-                key={project.id}
-                className={`group rounded-2xl border overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 ${
-                  darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-slate-700' : 'bg-white border-slate-200 shadow-sm hover:shadow-md'
-                }`}
-              >
+              <div key={project.id} className={`group rounded-2xl border overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 ${darkMode ? 'bg-slate-900/60 border-slate-800 hover:border-slate-700' : 'bg-white border-slate-200 shadow-sm hover:shadow-md'}`}>
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
@@ -484,58 +438,40 @@ export default function App() {
                     {project.description}
                   </p>
 
-                  {/* Impact Metric Banner */}
                   <div className={`mt-4 px-3 py-2 rounded-lg text-xs font-mono flex items-center gap-2 ${darkMode ? 'bg-slate-950 text-indigo-300' : 'bg-indigo-50 text-indigo-700'}`}>
                     <CheckCircle2 className="w-3.5 h-3.5 text-indigo-500 flex-shrink-0" />
                     <span>{project.metrics}</span>
                   </div>
 
-                  {/* Tech Stack Badges */}
                   <div className="mt-5 flex flex-wrap gap-2">
                     {project.tags.map((tag, tIdx) => (
-                      <span 
-                        key={tIdx} 
-                        className={`text-xs px-2.5 py-1 rounded-md font-mono ${darkMode ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'}`}
-                      >
+                      <span key={tIdx} className={`text-xs px-2.5 py-1 rounded-md font-mono ${darkMode ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'}`}>
                         {tag}
                       </span>
                     ))}
                   </div>
-              </div>
+                </div>
 
-              {/* Footer Link Actions */}
-              <div className={`px-6 py-4 border-t flex items-center justify-between ${darkMode ? 'border-slate-800/80 bg-slate-950/40' : 'border-slate-100 bg-slate-50/50'}`}>
-                <button
-                  onClick={() => setSelectedProject(project)}
-                  className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center gap-1.5"
-                >
-                  <Eye className="w-3.5 h-3.5" /> View Case Details
-                </button>
+                <div className={`px-6 py-4 border-t flex items-center justify-between ${darkMode ? 'border-slate-800/80 bg-slate-950/40' : 'border-slate-100 bg-slate-50/50'}`}>
+                  <button
+                    onClick={() => setSelectedProject(project)}
+                    className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center gap-1.5"
+                  >
+                    <Eye className="w-3.5 h-3.5" /> View Case Details
+                  </button>
 
-                <div className="flex items-center space-x-3">
-                  <a 
-                    href={project.githubUrl} 
-                    target="_blank" 
-                    rel="noreferrer" 
-                    className="p-1.5 rounded-lg hover:text-indigo-400 transition-colors"
-                    aria-label="Code Repository"
-                  >
-                    <Github className="w-4 h-4" />
-                  </a>
-                  <a 
-                    href={project.liveUrl} 
-                    target="_blank" 
-                    rel="noreferrer" 
-                    className="p-1.5 rounded-lg hover:text-indigo-400 transition-colors"
-                    aria-label="Live Demo"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
+                  <div className="flex items-center space-x-3">
+                    <a href={project.githubUrl} target="_blank" rel="noreferrer" className="p-1.5 rounded-lg hover:text-indigo-400 transition-colors" aria-label="Code Repository">
+                      <Github className="w-4 h-4" />
+                    </a>
+                    <a href={project.liveUrl} target="_blank" rel="noreferrer" className="p-1.5 rounded-lg hover:text-indigo-400 transition-colors" aria-label="Live Demo">
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
         </section>
 
         {/* EXPERIENCE & TIMELINE SECTION */}
@@ -548,13 +484,10 @@ export default function App() {
           <div className="max-w-3xl mx-auto space-y-8 relative before:absolute before:inset-0 before:left-4 sm:before:left-1/2 before:w-0.5 before:-ml-px before:bg-slate-800">
             {PORTFOLIO_DATA.experience.map((exp, idx) => (
               <div key={idx} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                
-                {/* Timeline Dot */}
                 <div className="flex items-center justify-center w-8 h-8 rounded-full border border-indigo-500 bg-slate-950 text-indigo-400 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
                   <Briefcase className="w-4 h-4" />
                 </div>
 
-                {/* Content Card */}
                 <div className={`w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border ${darkMode ? 'bg-slate-900/70 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-semibold text-indigo-400">{exp.period}</span>
@@ -577,19 +510,18 @@ export default function App() {
                     ))}
                   </ul>
                 </div>
-
               </div>
             ))}
           </div>
         </section>
 
-        {/* CONTACT SECTION (Direct Contact Card) */}
+        {/* CONTACT SECTION (Clean Contact Card - No Form) */}
         <section id="contact" className="py-20 border-t border-slate-800/40">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-xs uppercase tracking-widest font-semibold text-indigo-500">Get In Touch</h2>
             <p className="mt-2 text-3xl font-bold tracking-tight">Let's Work Together</p>
             <p className={`mt-3 text-sm ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-              Have a project in mind or looking for a software engineer? Reach out directly below.
+              Have a project in mind or looking for an engineer? Reach out directly below.
             </p>
           </div>
 
@@ -600,7 +532,7 @@ export default function App() {
               </div>
               <h3 className="text-xl font-bold mb-2">Get in Touch Directly</h3>
               <p className={`text-sm mb-6 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                I'm currently open to full-time roles and exciting engineering projects. Feel free to drop me an email or connect via LinkedIn.
+                I'm currently open to full-time roles and engineering projects. Feel free to drop me an email or connect via LinkedIn.
               </p>
 
               <div className="space-y-3 mb-8 text-sm">
@@ -621,19 +553,19 @@ export default function App() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a
                   href={`mailto:${PORTFOLIO_DATA.personal.email}`}
-                className="w-full sm:w-auto px-6 py-3 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl shadow-md shadow-indigo-500/25 transition-all"
-              >
-                Send an Email
-              </a>
-              <a
-                href={PORTFOLIO_DATA.personal.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className={`w-full sm:w-auto px-6 py-3 text-sm font-semibold rounded-xl border transition-all ${darkMode ? 'bg-slate-900 border-slate-800 text-slate-200 hover:bg-slate-800' : 'bg-slate-50 border-slate-300 text-slate-700 hover:bg-slate-100'}`}
-              >
-                Connect on LinkedIn
-              </a>
-            </div>
+                  className="w-full sm:w-auto px-6 py-3 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl shadow-md shadow-indigo-500/25 transition-all"
+                >
+                  Send an Email
+                </a>
+                <a
+                  href={PORTFOLIO_DATA.personal.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`w-full sm:w-auto px-6 py-3 text-sm font-semibold rounded-xl border transition-all ${darkMode ? 'bg-slate-900 border-slate-800 text-slate-200 hover:bg-slate-800' : 'bg-slate-50 border-slate-300 text-slate-700 hover:bg-slate-100'}`}
+                >
+                  Connect on LinkedIn
+                </a>
+              </div>
             </div>
           </div>
         </section>
