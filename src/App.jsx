@@ -26,7 +26,9 @@ import {
   Wrench,
   Server,
   Download,
-  Eye
+  Eye,
+  Phone,
+  MapPin
 } from 'lucide-react';
 
 // Sample Developer Portfolio Data
@@ -146,8 +148,6 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('All');
   const [selectedProject, setSelectedProject] = useState(null);
-  const [formStatus, setFormStatus] = useState({ submitted: false, loading: false, message: '' });
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
 
   // Handle Theme Switcher
   useEffect(() => {
@@ -159,31 +159,10 @@ export default function App() {
   }, [darkMode]);
 
   // Project Filtering Logic
-  const categories = ['All', 'Full Stack', 'Frontend', 'Backend', 'AI & Full Stack'];
+  const categories = ['All', 'Cloud Infrastructure', 'Web Application'];
   const filteredProjects = activeTab === 'All' 
     ? PORTFOLIO_DATA.projects 
     : PORTFOLIO_DATA.projects.filter(p => p.category === activeTab);
-
-  // Form Submission Mock Handler
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormStatus({ submitted: false, loading: true, message: '' });
-    
-    // Simulate server call
-    setTimeout(() => {
-      setFormStatus({
-        submitted: true,
-        loading: false,
-        message: 'Thank you! Your message has been sent successfully. I will get back to you soon.'
-      });
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 1200);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'} font-sans antialiased selection:bg-indigo-500 selection:text-white`}>
@@ -522,41 +501,41 @@ export default function App() {
                       </span>
                     ))}
                   </div>
-                </div>
+              </div>
 
-                {/* Footer Link Actions */}
-                <div className={`px-6 py-4 border-t flex items-center justify-between ${darkMode ? 'border-slate-800/80 bg-slate-950/40' : 'border-slate-100 bg-slate-50/50'}`}>
-                  <button
-                    onClick={() => setSelectedProject(project)}
-                    className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center gap-1.5"
+              {/* Footer Link Actions */}
+              <div className={`px-6 py-4 border-t flex items-center justify-between ${darkMode ? 'border-slate-800/80 bg-slate-950/40' : 'border-slate-100 bg-slate-50/50'}`}>
+                <button
+                  onClick={() => setSelectedProject(project)}
+                  className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center gap-1.5"
+                >
+                  <Eye className="w-3.5 h-3.5" /> View Case Details
+                </button>
+
+                <div className="flex items-center space-x-3">
+                  <a 
+                    href={project.githubUrl} 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="p-1.5 rounded-lg hover:text-indigo-400 transition-colors"
+                    aria-label="Code Repository"
                   >
-                    <Eye className="w-3.5 h-3.5" /> View Case Details
-                  </button>
-
-                  <div className="flex items-center space-x-3">
-                    <a 
-                      href={project.githubUrl} 
-                      target="_blank" 
-                      rel="noreferrer" 
-                      className="p-1.5 rounded-lg hover:text-indigo-400 transition-colors"
-                      aria-label="Code Repository"
-                    >
-                      <Github className="w-4 h-4" />
-                    </a>
-                    <a 
-                      href={project.liveUrl} 
-                      target="_blank" 
-                      rel="noreferrer" 
-                      className="p-1.5 rounded-lg hover:text-indigo-400 transition-colors"
-                      aria-label="Live Demo"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  </div>
+                    <Github className="w-4 h-4" />
+                  </a>
+                  <a 
+                    href={project.liveUrl} 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="p-1.5 rounded-lg hover:text-indigo-400 transition-colors"
+                    aria-label="Live Demo"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
         </section>
 
         {/* EXPERIENCE & TIMELINE SECTION */}
@@ -604,268 +583,125 @@ export default function App() {
           </div>
         </section>
 
-        {/* CONTACT SECTION */}
+        {/* CONTACT SECTION (Direct Contact Card) */}
         <section id="contact" className="py-20 border-t border-slate-800/40">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-xs uppercase tracking-widest font-semibold text-indigo-500">Get In Touch</h2>
             <p className="mt-2 text-3xl font-bold tracking-tight">Let's Work Together</p>
             <p className={`mt-3 text-sm ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-              Have a project in mind or looking for a senior software engineer? Send a message below.
+              Have a project in mind or looking for a software engineer? Reach out directly below.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-8 max-w-5xl mx-auto">
-            
-            {/* Contact Details Panel */}
-            <div className={`lg:col-span-5 p-8 rounded-2xl border flex flex-col justify-between ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
-              <div>
-                <h3 className="text-xl font-bold mb-4">Contact Information</h3>
-                <p className={`text-sm mb-8 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                  Feel free to reach out directly via email or social networks. I typically reply within 24 hours.
-                </p>
+          <div className="max-w-xl mx-auto">
+            <div className={`p-8 rounded-2xl border text-center ${darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
+              <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center">
+                <Mail className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Get in Touch Directly</h3>
+              <p className={`text-sm mb-6 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                I'm currently open to full-time roles and exciting engineering projects. Feel free to drop me an email or connect via LinkedIn.
+              </p>
 
-                <div className="space-y-6">
-                  <div className="flex items-center space-x-4">
-                    <div className="p-3 rounded-xl bg-indigo-500/10 text-indigo-400">
-                      <Mail className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-medium text-slate-400">Direct Email</div>
-                      <a href={`mailto:${PORTFOLIO_DATA.personal.email}`} className="text-sm font-semibold hover:text-indigo-400 transition-colors">
-                        {PORTFOLIO_DATA.personal.email}
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-4">
-                    <div className="p-3 rounded-xl bg-emerald-500/10 text-emerald-400">
-                      <User className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-medium text-slate-400">Phone Number</div>
-                      <a href={`tel:${PORTFOLIO_DATA.personal.phone}`} className="text-sm font-semibold hover:text-emerald-400 transition-colors">
-                        {PORTFOLIO_DATA.personal.phone}
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-4">
-                    <div className="p-3 rounded-xl bg-purple-500/10 text-purple-400">
-                      <Globe className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-medium text-slate-400">Location</div>
-                      <div className="text-sm font-semibold">{PORTFOLIO_DATA.personal.location}</div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-4">
-                    <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400">
-                      <GraduationCap className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-medium text-slate-400">Education & CGPA</div>
-                      <div className="text-xs font-semibold">{PORTFOLIO_DATA.personal.education.institution}</div>
-                      <div className="text-xs text-slate-400">CGPA: {PORTFOLIO_DATA.personal.education.cgpa}</div>
-                    </div>
-                  </div>
+              <div className="space-y-3 mb-8 text-sm">
+                <div className="flex items-center justify-center space-x-2 text-slate-400">
+                  <Mail className="w-4 h-4 text-indigo-400" />
+                  <span>{PORTFOLIO_DATA.personal.email}</span>
+                </div>
+                <div className="flex items-center justify-center space-x-2 text-slate-400">
+                  <Phone className="w-4 h-4 text-indigo-400" />
+                  <span>{PORTFOLIO_DATA.personal.phone}</span>
+                </div>
+                <div className="flex items-center justify-center space-x-2 text-slate-400">
+                  <MapPin className="w-4 h-4 text-indigo-400" />
+                  <span>{PORTFOLIO_DATA.personal.location}</span>
                 </div>
               </div>
 
-              <div className="pt-8 border-t border-slate-800/50 mt-8">
-                <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Connect Globally</div>
-                <div className="flex space-x-3">
-                  <a href={PORTFOLIO_DATA.personal.github} target="_blank" rel="noreferrer" className={`p-2.5 rounded-xl border transition-colors ${darkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-slate-100 border-slate-200 hover:bg-slate-200'}`}>
-                    <Github className="w-4 h-4" />
-                  </a>
-                  <a href={PORTFOLIO_DATA.personal.linkedin} target="_blank" rel="noreferrer" className={`p-2.5 rounded-xl border transition-colors ${darkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-slate-100 border-slate-200 hover:bg-slate-200'}`}>
-                    <Linkedin className="w-4 h-4" />
-                  </a>
-                  <a href={PORTFOLIO_DATA.personal.twitter} target="_blank" rel="noreferrer" className={`p-2.5 rounded-xl border transition-colors ${darkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-slate-100 border-slate-200 hover:bg-slate-200'}`}>
-                    <Twitter className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a
+                  href={`mailto:${PORTFOLIO_DATA.personal.email}`}
+                className="w-full sm:w-auto px-6 py-3 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl shadow-md shadow-indigo-500/25 transition-all"
+              >
+                Send an Email
+              </a>
+              <a
+                href={PORTFOLIO_DATA.personal.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className={`w-full sm:w-auto px-6 py-3 text-sm font-semibold rounded-xl border transition-all ${darkMode ? 'bg-slate-900 border-slate-800 text-slate-200 hover:bg-slate-800' : 'bg-slate-50 border-slate-300 text-slate-700 hover:bg-slate-100'}`}
+              >
+                Connect on LinkedIn
+              </a>
             </div>
-
-            {/* Interactive Form */}
-            <div className={`lg:col-span-7 p-8 rounded-2xl border ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
-              {formStatus.submitted ? (
-                <div className="py-12 text-center space-y-4">
-                  <div className="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-xl font-bold">Message Received!</h3>
-                  <p className="text-sm text-slate-400 max-w-md mx-auto">{formStatus.message}</p>
-                  <button
-                    onClick={() => setFormStatus({ submitted: false, loading: false, message: '' })}
-                    className="mt-4 px-5 py-2 text-xs font-semibold text-white bg-indigo-600 rounded-xl hover:bg-indigo-500"
-                  >
-                    Send Another Message
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div>
-                      <label className="block text-xs font-semibold mb-2">Your Name</label>
-                      <input
-                        type="text"
-                        name="name"
-                        required
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        placeholder="John Doe"
-                        className={`w-full px-4 py-2.5 rounded-xl text-sm border outline-none transition-colors ${
-                          darkMode ? 'bg-slate-950 border-slate-800 focus:border-indigo-500' : 'bg-slate-50 border-slate-200 focus:border-indigo-500'
-                        }`}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold mb-2">Your Email</label>
-                      <input
-                        type="email"
-                        name="email"
-                        required
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder="john@example.com"
-                        className={`w-full px-4 py-2.5 rounded-xl text-sm border outline-none transition-colors ${
-                          darkMode ? 'bg-slate-950 border-slate-800 focus:border-indigo-500' : 'bg-slate-50 border-slate-200 focus:border-indigo-500'
-                        }`}
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold mb-2">Subject</label>
-                    <input
-                      type="text"
-                      name="subject"
-                      required
-                      value={formData.subject}
-                      onChange={handleInputChange}
-                      placeholder="Project Inquiry / Job Opportunity"
-                      className={`w-full px-4 py-2.5 rounded-xl text-sm border outline-none transition-colors ${
-                        darkMode ? 'bg-slate-950 border-slate-800 focus:border-indigo-500' : 'bg-slate-50 border-slate-200 focus:border-indigo-500'
-                      }`}
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold mb-2">Message</label>
-                    <textarea
-                      name="message"
-                      rows={5}
-                      required
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      placeholder="Tell me about your project goals or timeline..."
-                      className={`w-full px-4 py-2.5 rounded-xl text-sm border outline-none transition-colors resize-none ${
-                        darkMode ? 'bg-slate-950 border-slate-800 focus:border-indigo-500' : 'bg-slate-50 border-slate-200 focus:border-indigo-500'
-                      }`}
-                    ></textarea>
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={formStatus.loading}
-                    className="w-full py-3.5 px-6 font-semibold text-sm text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl shadow-md shadow-indigo-500/25 flex items-center justify-center space-x-2 transition-all disabled:opacity-50"
-                  >
-                    {formStatus.loading ? (
-                      <span>Sending message...</span>
-                    ) : (
-                      <>
-                        <span>Send Message</span>
-                        <Send className="w-4 h-4" />
-                      </>
-                    )}
-                  </button>
-                </form>
-              )}
             </div>
-
           </div>
         </section>
-
       </main>
 
-      {/* CASE STUDY MODAL */}
+      {/* PROJECT DETAILS MODAL */}
       {selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-          <div className={`w-full max-w-2xl rounded-2xl border p-6 sm:p-8 max-h-[90vh] overflow-y-auto ${darkMode ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-white border-slate-200 text-slate-900'}`}>
-            
-            <div className="flex items-center justify-between pb-4 border-b border-slate-800/50">
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-                {selectedProject.category}
-              </span>
-              <button 
-                onClick={() => setSelectedProject(null)}
-                className="p-1 rounded-lg hover:bg-slate-800 transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+          <div className={`w-full max-w-2xl rounded-2xl border p-6 sm:p-8 relative ${darkMode ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-white border-slate-200 text-slate-900'}`}>
+            <button 
+              onClick={() => setSelectedProject(null)}
+              className="absolute top-4 right-4 p-2 rounded-xl border hover:bg-slate-800/50 transition-colors"
+              aria-label="Close modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
 
-            <h3 className="text-2xl font-bold mt-4">{selectedProject.title}</h3>
-            <p className={`mt-3 text-sm leading-relaxed ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+              {selectedProject.category}
+            </span>
+
+            <h3 className="text-2xl font-bold mt-4 mb-2">{selectedProject.title}</h3>
+            <p className={`text-sm leading-relaxed mb-6 ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
               {selectedProject.longDescription}
             </p>
 
-            <div className="mt-6 space-y-3">
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400">Key Performance Highlight</h4>
-              <div className={`p-3 rounded-xl border text-sm font-mono flex items-center gap-2 ${darkMode ? 'bg-slate-950 border-slate-800 text-indigo-300' : 'bg-indigo-50 border-indigo-200 text-indigo-800'}`}>
-                <CheckCircle2 className="w-4 h-4 text-indigo-500" />
-                <span>{selectedProject.metrics}</span>
-              </div>
+            <div className={`p-4 rounded-xl mb-6 text-xs font-mono flex items-center gap-2 ${darkMode ? 'bg-slate-950 text-indigo-300' : 'bg-indigo-50 text-indigo-700'}`}>
+              <CheckCircle2 className="w-4 h-4 text-indigo-500 shrink-0" />
+              <span>{selectedProject.metrics}</span>
             </div>
 
-            <div className="mt-6 space-y-3">
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400">Technologies Used</h4>
+            <div className="mb-8">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Technologies Used</h4>
               <div className="flex flex-wrap gap-2">
-                {selectedProject.tags.map((t, i) => (
-                  <span key={i} className={`text-xs px-2.5 py-1 rounded-md font-mono ${darkMode ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'}`}>
-                    {t}
+                {selectedProject.tags.map((tag, idx) => (
+                  <span key={idx} className={`text-xs px-2.5 py-1 rounded-md font-mono ${darkMode ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'}`}>
+                    {tag}
                   </span>
                 ))}
               </div>
             </div>
 
-            <div className="mt-8 pt-4 border-t border-slate-800/50 flex justify-end space-x-3">
+            <div className="flex items-center space-x-4">
               <a
                 href={selectedProject.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className={`px-4 py-2 text-xs font-semibold rounded-xl border flex items-center space-x-2 ${darkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-slate-100 border-slate-200 hover:bg-slate-200'}`}
+                className="px-4 py-2.5 text-xs font-semibold rounded-xl bg-indigo-600 text-white hover:bg-indigo-500 flex items-center gap-2"
               >
-                <Github className="w-4 h-4" />
-                <span>Source Code</span>
+                <Github className="w-4 h-4" /> View Repository
               </a>
               <a
                 href={selectedProject.liveUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="px-4 py-2 text-xs font-semibold text-white bg-indigo-600 rounded-xl hover:bg-indigo-500 flex items-center space-x-2 shadow-md"
+                className={`px-4 py-2.5 text-xs font-semibold rounded-xl border flex items-center gap-2 ${darkMode ? 'border-slate-800 hover:bg-slate-800' : 'border-slate-300 hover:bg-slate-100'}`}
               >
-                <ExternalLink className="w-4 h-4" />
-                <span>Live Preview</span>
+                <ExternalLink className="w-4 h-4" /> Live Demo / Profile
               </a>
             </div>
-
           </div>
         </div>
       )}
 
       {/* FOOTER */}
-      <footer className={`mt-20 border-t py-8 text-xs text-center transition-colors ${darkMode ? 'border-slate-800/80 text-slate-500' : 'border-slate-200 text-slate-500'}`}>
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} {PORTFOLIO_DATA.personal.name}. All rights reserved.</p>
-          <p className="flex items-center space-x-1">
-            <span>Designed & Built with React + Tailwind CSS</span>
-          </p>
-        </div>
+      <footer className={`py-8 border-t text-center text-xs ${darkMode ? 'bg-slate-950 border-slate-900 text-slate-500' : 'bg-white border-slate-200 text-slate-400'}`}>
+        <p>© {new Date().getFullYear()} {PORTFOLIO_DATA.personal.name}. All rights reserved.</p>
       </footer>
-
     </div>
   );
 }
